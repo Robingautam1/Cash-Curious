@@ -1,26 +1,142 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #FFFBF0;
+  --foreground: #1a1a1a;
+
+  /* Age Track Colors */
+  --explorers-primary: #FF9F1C;
+  --explorers-secondary: #FFBF69;
+  --creators-primary: #7209B7;
+  --creators-secondary: #4CC9F0;
+  --investors-primary: #06D6A0;
+  --investors-secondary: #118AB2;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-cream: #FFFBF0;
+  --font-heading: 'Fredoka', 'Nunito', sans-serif;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Fredoka', 'Nunito', sans-serif;
+  position: relative;
+  min-height: 100vh;
+}
+
+/* Faint 20px Blue Dot Grid */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background-image: radial-gradient(circle, rgba(66, 153, 225, 0.15) 1.5px, transparent 1.5px);
+  background-size: 20px 20px;
+  z-index: 0;
+}
+
+body>* {
+  position: relative;
+  z-index: 1;
+}
+
+/* Neo-Brutalist Shadows */
+.shadow-brutal {
+  box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 1);
+}
+
+.shadow-brutal-sm {
+  box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 1);
+}
+
+.shadow-brutal-lg {
+  box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 1);
+}
+
+/* Card base - Neo-Brutalist */
+.card-brutal {
+  border: 2px solid black;
+  border-radius: 1rem;
+  background: white;
+  box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 1);
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.card-brutal:hover {
+  box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 1);
+  transform: translateY(-6px);
+}
+
+/* Brutalist Buttons */
+.btn-brutal {
+  border: 2px solid black;
+  border-radius: 0.75rem;
+  padding: 0.75rem 1.5rem;
+  font-weight: 700;
+  box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 1);
+  transition: all 0.15s ease;
+}
+
+.btn-brutal:hover {
+  box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 1);
+  transform: translate(-2px, -2px);
+}
+
+.btn-brutal:active {
+  box-shadow: 2px 2px 0px 0px rgba(0, 0, 0, 1);
+  transform: translate(2px, 2px);
+}
+
+/* Pill button for header */
+.btn-pill {
+  border: 2px solid black;
+  border-radius: 9999px;
+  padding: 0.5rem 1.25rem;
+  font-weight: 700;
+  box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 1);
+  transition: all 0.15s ease;
+  background: white;
+}
+
+.btn-pill:hover {
+  box-shadow: 5px 5px 0px 0px rgba(0, 0, 0, 1);
+  transform: translate(-1px, -1px);
+}
+
+/* Modal overlay */
+.modal-overlay {
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+}
+
+/* Success animation */
+@keyframes celebrate {
+
+  0%,
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+
+  25% {
+    transform: scale(1.1) rotate(-3deg);
+  }
+
+  50% {
+    transform: scale(1.15) rotate(3deg);
+  }
+
+  75% {
+    transform: scale(1.1) rotate(-2deg);
+  }
+}
+
+.animate-celebrate {
+  animation: celebrate 0.6s ease-in-out;
 }
