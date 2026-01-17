@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import { Providers } from "./providers";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -32,8 +34,12 @@ export default function RootLayout({
         style={{ fontFamily: 'var(--font-space-grotesk), sans-serif' }}
         suppressHydrationWarning
       >
-        {children}
+        <Providers>
+          {children}
+          <ThemeToggle />
+        </Providers>
       </body>
     </html>
   );
 }
+

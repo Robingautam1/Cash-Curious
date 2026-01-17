@@ -607,7 +607,7 @@ export default function Home() {
   return (
     <main className="min-h-screen dot-pattern">
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 border-b-2 border-black bg-[#FDFCF6]/95 backdrop-blur-sm">
+      <nav className="fixed top-0 left-0 right-0 z-50 border-b-2 border-black dark:border-white/20 bg-[#FDFCF6]/95 dark:bg-[#0B0F19]/95 backdrop-blur-sm transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div
@@ -617,20 +617,20 @@ export default function Home() {
               CC
             </div>
             <div>
-              <div className="font-bold text-sm tracking-tight">CashCurious</div>
-              <div className="mono-label text-gray-500">v2.0</div>
+              <div className="font-bold text-sm tracking-tight dark:text-white">CashCurious</div>
+              <div className="mono-label text-gray-500 dark:text-gray-400">v2.0</div>
             </div>
           </div>
 
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center gap-8">
-            <button onClick={() => scrollToSection('modules')} className="mono-label text-gray-600 hover:text-black transition-colors">
+            <button onClick={() => scrollToSection('modules')} className="mono-label text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors">
               Modules
             </button>
-            <button onClick={() => scrollToSection('features')} className="mono-label text-gray-600 hover:text-black transition-colors">
+            <button onClick={() => scrollToSection('features')} className="mono-label text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors">
               Features
             </button>
-            <button onClick={() => scrollToSection('footer')} className="mono-label text-gray-600 hover:text-black transition-colors">
+            <button onClick={() => scrollToSection('footer')} className="mono-label text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors">
               Contact
             </button>
             <button
@@ -643,7 +643,7 @@ export default function Home() {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden p-2"
+            className="md:hidden p-2 dark:text-white"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             <Menu size={24} />
@@ -652,19 +652,19 @@ export default function Home() {
 
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="md:hidden border-t-2 border-black bg-[#FDFCF6] px-6 py-4 space-y-3">
-            <button onClick={() => scrollToSection('modules')} className="block w-full text-left py-2 font-semibold">
+          <div className="md:hidden border-t-2 border-black dark:border-white/20 bg-[#FDFCF6] dark:bg-[#0B0F19] px-6 py-4 space-y-3">
+            <button onClick={() => scrollToSection('modules')} className="block w-full text-left py-2 font-semibold dark:text-white">
               Modules
             </button>
-            <button onClick={() => scrollToSection('features')} className="block w-full text-left py-2 font-semibold">
+            <button onClick={() => scrollToSection('features')} className="block w-full text-left py-2 font-semibold dark:text-white">
               Features
             </button>
-            <button onClick={() => scrollToSection('footer')} className="block w-full text-left py-2 font-semibold">
+            <button onClick={() => scrollToSection('footer')} className="block w-full text-left py-2 font-semibold dark:text-white">
               Contact
             </button>
             <button
               onClick={() => scrollToSection('modules')}
-              className="w-full py-3 bg-black text-white font-semibold rounded-lg"
+              className="w-full py-3 bg-black dark:bg-[#FFD166] text-white dark:text-black font-semibold rounded-lg"
             >
               Get Started
             </button>
@@ -682,7 +682,7 @@ export default function Home() {
                 <span className="mono-label">24 Lessons • 3 Tracks • 6,000+ XP</span>
               </div>
 
-              <h1 className="headline-heavy text-5xl sm:text-6xl md:text-7xl lg:text-8xl">
+              <h1 className="headline-heavy text-5xl sm:text-6xl md:text-7xl lg:text-8xl dark:text-white">
                 Financial<br />Literacy for<br />
                 <span className="relative inline-block">
                   <span className="relative z-10">the Curious.</span>
@@ -690,7 +690,7 @@ export default function Home() {
                 </span>
               </h1>
 
-              <p className="text-xl text-gray-600 max-w-md leading-relaxed">
+              <p className="text-xl text-gray-600 dark:text-gray-300 max-w-md leading-relaxed">
                 No boring lectures. No generic advice. Just street-smart lessons that build real wealth—one mission at a time.
               </p>
 
@@ -709,11 +709,11 @@ export default function Home() {
                 </button>
               </div>
 
-              <div className="pt-6 border-t border-gray-200">
+              <div className="pt-6 border-t border-gray-200 dark:border-gray-700">
                 <div className="mono-label text-gray-400 mb-3">Trusted by educators at</div>
                 <div className="flex flex-wrap gap-6">
                   {["Stanford", "MIT", "Khan Academy", "EdSurge"].map(name => (
-                    <span key={name} className="text-sm font-semibold text-gray-400">{name}</span>
+                    <span key={name} className="text-sm font-semibold text-gray-400 dark:text-gray-500">{name}</span>
                   ))}
                 </div>
               </div>
@@ -756,16 +756,16 @@ export default function Home() {
       </section>
 
       {/* Modules Section */}
-      <section id="modules" className="py-20 px-6 border-t-2 border-black">
+      <section id="modules" className="py-20 px-6 border-t-2 border-black dark:border-white/20">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-wrap items-end justify-between gap-4 mb-12">
             <div>
               <div className="mono-label text-gray-400 mb-2">Learning Tracks</div>
-              <h2 className="headline-heavy text-4xl md:text-5xl">Choose Your<br />Adventure</h2>
+              <h2 className="headline-heavy text-4xl md:text-5xl dark:text-white">Choose Your<br />Adventure</h2>
             </div>
             <div className="flex items-center gap-2">
               <div className="status-dot" />
-              <span className="mono-label">3 Tracks • 24 Missions</span>
+              <span className="mono-label dark:text-gray-300">3 Tracks • 24 Missions</span>
             </div>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -781,12 +781,12 @@ export default function Home() {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-20 px-6 border-t-2 border-black bg-white">
+      <section id="features" className="py-20 px-6 border-t-2 border-black dark:border-white/20 bg-white dark:bg-[#0B0F19]/50">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-16">
             <div>
               <div className="mono-label text-gray-400 mb-2">Platform Features</div>
-              <h2 className="headline-heavy text-4xl mb-8">Built for<br />Real Learning</h2>
+              <h2 className="headline-heavy text-4xl mb-8 dark:text-white">Built for<br />Real Learning</h2>
               <div className="space-y-4">
                 {[
                   { Icon: Zap, title: "Street-Smart Content", desc: "No fluff or filler. Real-world lessons written by finance educators who work with teens daily.", color: "#FF9F1C" },
@@ -847,7 +847,7 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer id="footer" className="py-12 px-6 border-t-2 border-black">
+      <footer id="footer" className="py-12 px-6 border-t-2 border-black dark:border-white/20">
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-4 gap-8 mb-12">
             <div>
@@ -859,19 +859,19 @@ export default function Home() {
                   CC
                 </div>
                 <div>
-                  <div className="font-bold">CashCurious</div>
+                  <div className="font-bold dark:text-white">CashCurious</div>
                   <div className="mono-label text-gray-500">v2.0</div>
                 </div>
               </div>
-              <p className="text-sm text-gray-600 mb-4">Financial literacy for the curious generation.</p>
+              <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">Financial literacy for the curious generation.</p>
               <div className="flex gap-3">
-                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="w-9 h-9 border-2 border-gray-300 flex items-center justify-center hover:border-black transition-colors rounded">
+                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="w-9 h-9 border-2 border-gray-300 dark:border-gray-600 dark:text-white flex items-center justify-center hover:border-black dark:hover:border-[#FFD166] transition-colors rounded">
                   <Twitter size={16} />
                 </a>
-                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="w-9 h-9 border-2 border-gray-300 flex items-center justify-center hover:border-black transition-colors rounded">
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="w-9 h-9 border-2 border-gray-300 dark:border-gray-600 dark:text-white flex items-center justify-center hover:border-black dark:hover:border-[#FFD166] transition-colors rounded">
                   <Instagram size={16} />
                 </a>
-                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="w-9 h-9 border-2 border-gray-300 flex items-center justify-center hover:border-black transition-colors rounded">
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="w-9 h-9 border-2 border-gray-300 dark:border-gray-600 dark:text-white flex items-center justify-center hover:border-black dark:hover:border-[#FFD166] transition-colors rounded">
                   <Linkedin size={16} />
                 </a>
               </div>
@@ -879,36 +879,36 @@ export default function Home() {
             <div>
               <div className="mono-label text-gray-400 mb-4">Product</div>
               <ul className="space-y-2">
-                <li><button onClick={() => scrollToSection('modules')} className="text-sm text-gray-600 hover:text-black transition-colors">All Modules</button></li>
-                <li><button onClick={() => handleCardClick('track-6-10')} className="text-sm text-gray-600 hover:text-black transition-colors">Ages 6-10</button></li>
-                <li><button onClick={() => handleCardClick('track-11-15')} className="text-sm text-gray-600 hover:text-black transition-colors">Ages 11-15</button></li>
-                <li><button onClick={() => handleCardClick('track-15-18')} className="text-sm text-gray-600 hover:text-black transition-colors">Ages 15-18</button></li>
+                <li><button onClick={() => scrollToSection('modules')} className="text-sm text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors">All Modules</button></li>
+                <li><button onClick={() => handleCardClick('track-6-10')} className="text-sm text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors">Ages 6-10</button></li>
+                <li><button onClick={() => handleCardClick('track-11-15')} className="text-sm text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors">Ages 11-15</button></li>
+                <li><button onClick={() => handleCardClick('track-15-18')} className="text-sm text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors">Ages 15-18</button></li>
               </ul>
             </div>
             <div>
               <div className="mono-label text-gray-400 mb-4">Resources</div>
               <ul className="space-y-2">
-                <li><a href="#" className="text-sm text-gray-600 hover:text-black flex items-center gap-1 transition-colors">For Educators <ExternalLink size={10} className="opacity-50" /></a></li>
-                <li><a href="#" className="text-sm text-gray-600 hover:text-black flex items-center gap-1 transition-colors">For Parents <ExternalLink size={10} className="opacity-50" /></a></li>
-                <li><a href="#" className="text-sm text-gray-600 hover:text-black flex items-center gap-1 transition-colors">Blog <ExternalLink size={10} className="opacity-50" /></a></li>
-                <li><a href="#" className="text-sm text-gray-600 hover:text-black flex items-center gap-1 transition-colors">Help Center <ExternalLink size={10} className="opacity-50" /></a></li>
+                <li><a href="#" className="text-sm text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white flex items-center gap-1 transition-colors">For Educators <ExternalLink size={10} className="opacity-50" /></a></li>
+                <li><a href="#" className="text-sm text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white flex items-center gap-1 transition-colors">For Parents <ExternalLink size={10} className="opacity-50" /></a></li>
+                <li><a href="#" className="text-sm text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white flex items-center gap-1 transition-colors">Blog <ExternalLink size={10} className="opacity-50" /></a></li>
+                <li><a href="#" className="text-sm text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white flex items-center gap-1 transition-colors">Help Center <ExternalLink size={10} className="opacity-50" /></a></li>
               </ul>
             </div>
             <div>
               <div className="mono-label text-gray-400 mb-4">Contact</div>
               <ul className="space-y-2">
-                <li><a href="mailto:hello@cashcurious.com" className="text-sm text-gray-600 hover:text-black flex items-center gap-2 transition-colors"><Mail size={14} /> hello@cashcurious.com</a></li>
+                <li><a href="mailto:hello@cashcurious.com" className="text-sm text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white flex items-center gap-2 transition-colors"><Mail size={14} /> hello@cashcurious.com</a></li>
               </ul>
               <div className="mt-6">
                 <div className="mono-label text-gray-400 mb-2">Legal</div>
                 <ul className="space-y-1">
-                  <li><a href="#" className="text-xs text-gray-500 hover:text-black transition-colors">Privacy Policy</a></li>
-                  <li><a href="#" className="text-xs text-gray-500 hover:text-black transition-colors">Terms of Service</a></li>
+                  <li><a href="#" className="text-xs text-gray-500 hover:text-black dark:hover:text-white transition-colors">Privacy Policy</a></li>
+                  <li><a href="#" className="text-xs text-gray-500 hover:text-black dark:hover:text-white transition-colors">Terms of Service</a></li>
                 </ul>
               </div>
             </div>
           </div>
-          <div className="pt-8 border-t border-gray-200 flex flex-wrap justify-between items-center gap-4">
+          <div className="pt-8 border-t border-gray-200 dark:border-gray-700 flex flex-wrap justify-between items-center gap-4">
             <div className="mono-label text-gray-500">© 2026 CashCurious. All rights reserved.</div>
             <div className="text-xs text-gray-400">Made with ❤️ for the next generation of money-smart kids</div>
           </div>
