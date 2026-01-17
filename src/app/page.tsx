@@ -1,558 +1,267 @@
 'use client';
 
-import { useState, useRef } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { OrthographicCamera, Float, Outlines, ContactShadows } from '@react-three/drei';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Gamepad2, X, CheckCircle, XCircle, Sparkles, Coins, TrendingUp, LogIn } from 'lucide-react';
-import * as THREE from 'three';
+import { useState, useEffect } from 'react';
+import {
+  ArrowRight, Play, Zap, BookOpen, Target, TrendingUp, Award,
+  Users, Sparkles, Shield, ChevronRight, ExternalLink, Twitter,
+  Github, Mail
+} from 'lucide-react';
 
 // ============================================
-// 3D MODELS - Built Programmatically
+// SVG ILLUSTRATION COMPONENTS
 // ============================================
 
-// Model A: Piggy Bank with Hovering Coin (Ages 6-10 "Explorers")
-function PiggyBankModel({ isHovered }: { isHovered: boolean }) {
-  const groupRef = useRef<THREE.Group>(null);
-  const coinRef = useRef<THREE.Group>(null);
-
-  useFrame((state) => {
-    if (groupRef.current) {
-      // Bouncy movement
-      groupRef.current.position.y = Math.sin(state.clock.elapsedTime * (isHovered ? 6 : 3)) * (isHovered ? 0.25 : 0.15);
-      groupRef.current.rotation.z = Math.sin(state.clock.elapsedTime * 2) * 0.05;
-    }
-    if (coinRef.current) {
-      // Coin hovers and spins above piggy
-      coinRef.current.position.y = 1.4 + Math.sin(state.clock.elapsedTime * 4) * 0.15;
-      coinRef.current.rotation.y += isHovered ? 0.08 : 0.03;
-    }
-  });
-
+function PolyPiggy({ isHovered }: { isHovered: boolean }) {
   return (
-    <Float speed={2} rotationIntensity={0.2} floatIntensity={0.3}>
-      <group ref={groupRef} rotation={[0.1, -0.4, 0]} scale={0.85}>
-        {/* Main body - Pink cylinder */}
-        <mesh rotation={[0, 0, Math.PI / 2]}>
-          <cylinderGeometry args={[0.7, 0.8, 1.3, 32]} />
-          <meshStandardMaterial color="#FF9F1C" roughness={0.4} />
-          <Outlines thickness={0.05} color="black" />
-        </mesh>
-
+    <div
+      className={`transition-all duration-300 ${isHovered ? '' : 'animate-float'}`}
+      style={{ transform: isHovered ? 'scale(1.15)' : 'scale(1)' }}
+    >
+      <svg width="160" height="140" viewBox="0 0 160 140">
+        {/* Shadow */}
+        <ellipse cx="80" cy="125" rx="50" ry="10" fill="rgba(0,0,0,0.1)" />
+        {/* Body */}
+        <ellipse cx="80" cy="70" rx="55" ry="45" fill="#FF9F1C" stroke="black" strokeWidth="3" />
         {/* Snout */}
-        <mesh position={[0.85, 0, 0]} rotation={[0, 0, Math.PI / 2]}>
-          <cylinderGeometry args={[0.28, 0.32, 0.22, 32]} />
-          <meshStandardMaterial color="#FFBF69" roughness={0.4} />
-          <Outlines thickness={0.04} color="black" />
-        </mesh>
-
-        {/* Nostrils */}
-        <mesh position={[0.96, 0.06, 0.08]}>
-          <sphereGeometry args={[0.04, 16, 16]} />
-          <meshStandardMaterial color="#1a1a1a" />
-        </mesh>
-        <mesh position={[0.96, 0.06, -0.08]}>
-          <sphereGeometry args={[0.04, 16, 16]} />
-          <meshStandardMaterial color="#1a1a1a" />
-        </mesh>
-
-        {/* Ears */}
-        <mesh position={[0.15, 0.65, 0.3]} rotation={[0.3, 0, 0.25]}>
-          <coneGeometry args={[0.18, 0.35, 4]} />
-          <meshStandardMaterial color="#FF9F1C" roughness={0.4} />
-          <Outlines thickness={0.04} color="black" />
-        </mesh>
-        <mesh position={[0.15, 0.65, -0.3]} rotation={[-0.3, 0, 0.25]}>
-          <coneGeometry args={[0.18, 0.35, 4]} />
-          <meshStandardMaterial color="#FF9F1C" roughness={0.4} />
-          <Outlines thickness={0.04} color="black" />
-        </mesh>
-
+        <ellipse cx="130" cy="70" rx="18" ry="15" fill="#FF9F1C" stroke="black" strokeWidth="3" />
+        <circle cx="126" cy="66" r="4" fill="black" />
+        <circle cx="134" cy="66" r="4" fill="black" />
         {/* Eyes */}
-        <mesh position={[0.5, 0.3, 0.32]}>
-          <sphereGeometry args={[0.1, 16, 16]} />
-          <meshStandardMaterial color="white" />
-        </mesh>
-        <mesh position={[0.55, 0.33, 0.36]}>
-          <sphereGeometry args={[0.05, 16, 16]} />
-          <meshStandardMaterial color="#1a1a1a" />
-        </mesh>
-        <mesh position={[0.5, 0.3, -0.32]}>
-          <sphereGeometry args={[0.1, 16, 16]} />
-          <meshStandardMaterial color="white" />
-        </mesh>
-        <mesh position={[0.55, 0.33, -0.36]}>
-          <sphereGeometry args={[0.05, 16, 16]} />
-          <meshStandardMaterial color="#1a1a1a" />
-        </mesh>
-
-        {/* Coin slot */}
-        <mesh position={[0, 0.78, 0]}>
-          <boxGeometry args={[0.4, 0.05, 0.08]} />
-          <meshStandardMaterial color="#1a1a1a" />
-        </mesh>
-
+        <circle cx="100" cy="50" r="12" fill="white" stroke="black" strokeWidth="2" />
+        <circle cx="103" cy="50" r="6" fill="black" />
+        {/* Ears */}
+        <polygon points="55,30 70,15 80,35" fill="#2EC4B6" stroke="black" strokeWidth="2" />
+        <polygon points="105,30 90,15 80,35" fill="#2EC4B6" stroke="black" strokeWidth="2" />
         {/* Legs */}
-        {[
-          [0.35, -0.55, 0.35],
-          [0.35, -0.55, -0.35],
-          [-0.35, -0.55, 0.35],
-          [-0.35, -0.55, -0.35],
-        ].map((pos, i) => (
-          <mesh key={i} position={pos as [number, number, number]}>
-            <cylinderGeometry args={[0.1, 0.12, 0.28, 16]} />
-            <meshStandardMaterial color="#FFBF69" roughness={0.4} />
-            <Outlines thickness={0.03} color="black" />
-          </mesh>
-        ))}
-
-        {/* Curly tail */}
-        <mesh position={[-0.7, 0.12, 0]} rotation={[0, 0, 0.4]}>
-          <torusGeometry args={[0.1, 0.035, 8, 16, Math.PI * 1.5]} />
-          <meshStandardMaterial color="#FFBF69" roughness={0.4} />
-          <Outlines thickness={0.02} color="black" />
-        </mesh>
-
-        {/* Hovering Coin */}
-        <group ref={coinRef} position={[0, 1.4, 0]}>
-          <mesh rotation={[Math.PI / 2, 0, 0]}>
-            <cylinderGeometry args={[0.25, 0.25, 0.06, 32]} />
-            <meshStandardMaterial color="#FFD700" metalness={0.4} roughness={0.3} />
-            <Outlines thickness={0.03} color="black" />
-          </mesh>
-          {/* Dollar sign on coin */}
-          <mesh position={[0, 0.04, 0]}>
-            <boxGeometry args={[0.06, 0.01, 0.2]} />
-            <meshStandardMaterial color="#B8860B" />
-          </mesh>
-        </group>
-      </group>
-    </Float>
+        <rect x="40" y="100" width="18" height="25" rx="4" fill="#FF9F1C" stroke="black" strokeWidth="2" />
+        <rect x="65" y="100" width="18" height="25" rx="4" fill="#FF9F1C" stroke="black" strokeWidth="2" />
+        <rect x="90" y="100" width="18" height="25" rx="4" fill="#FF9F1C" stroke="black" strokeWidth="2" />
+        {/* Coin slot */}
+        <rect x="65" y="28" width="30" height="6" rx="3" fill="black" />
+        {/* Floating coin */}
+        {isHovered && (
+          <g className="animate-float">
+            <ellipse cx="80" cy="10" rx="12" ry="12" fill="#FFD700" stroke="black" strokeWidth="2" />
+            <text x="80" y="15" textAnchor="middle" fontSize="12" fontWeight="bold" fill="#8B6914">$</text>
+          </g>
+        )}
+      </svg>
+    </div>
   );
 }
 
-// Model B: Voxel Game Controller (Ages 11-15 "Creators")
-function GameControllerModel({ isHovered }: { isHovered: boolean }) {
-  const groupRef = useRef<THREE.Group>(null);
+function VoxelSneaker({ isHovered }: { isHovered: boolean }) {
+  const [colorIndex, setColorIndex] = useState(0);
+  const colors = ['#7209B7', '#4CC9F0', '#F72585', '#FFD166'];
 
-  useFrame(() => {
-    if (groupRef.current) {
-      groupRef.current.rotation.y += isHovered ? 0.05 : 0.01;
+  useEffect(() => {
+    if (isHovered) {
+      const interval = setInterval(() => setColorIndex(i => (i + 1) % colors.length), 200);
+      return () => clearInterval(interval);
     }
-  });
+  }, [isHovered]);
 
   return (
-    <Float speed={2} rotationIntensity={0.3} floatIntensity={0.4}>
-      <group ref={groupRef} rotation={[0.15, 0, 0.08]} scale={0.8}>
-        {/* Main body */}
-        <mesh>
-          <boxGeometry args={[2, 0.45, 1.1]} />
-          <meshStandardMaterial color="#7209B7" roughness={0.4} />
-          <Outlines thickness={0.05} color="black" />
-        </mesh>
-
-        {/* Left grip */}
-        <mesh position={[-0.75, -0.25, 0]} rotation={[0, 0, 0.15]}>
-          <boxGeometry args={[0.45, 0.6, 0.8]} />
-          <meshStandardMaterial color="#7209B7" roughness={0.4} />
-          <Outlines thickness={0.04} color="black" />
-        </mesh>
-
-        {/* Right grip */}
-        <mesh position={[0.75, -0.25, 0]} rotation={[0, 0, -0.15]}>
-          <boxGeometry args={[0.45, 0.6, 0.8]} />
-          <meshStandardMaterial color="#7209B7" roughness={0.4} />
-          <Outlines thickness={0.04} color="black" />
-        </mesh>
-
-        {/* D-Pad */}
-        <mesh position={[-0.5, 0.25, 0]}>
-          <boxGeometry args={[0.1, 0.06, 0.35]} />
-          <meshStandardMaterial color="#1a1a1a" />
-        </mesh>
-        <mesh position={[-0.5, 0.25, 0]}>
-          <boxGeometry args={[0.35, 0.06, 0.1]} />
-          <meshStandardMaterial color="#1a1a1a" />
-        </mesh>
-
-        {/* Action buttons */}
-        {[
-          { pos: [0.5, 0.27, 0.12] as [number, number, number], color: '#4CC9F0' },
-          { pos: [0.5, 0.27, -0.12] as [number, number, number], color: '#06D6A0' },
-          { pos: [0.32, 0.27, 0] as [number, number, number], color: '#FF9F1C' },
-          { pos: [0.68, 0.27, 0] as [number, number, number], color: '#F72585' },
-        ].map((btn, i) => (
-          <mesh key={i} position={btn.pos}>
-            <cylinderGeometry args={[0.08, 0.08, 0.06, 16]} />
-            <meshStandardMaterial color={btn.color} roughness={0.3} />
-            <Outlines thickness={0.02} color="black" />
-          </mesh>
-        ))}
-
-        {/* Joysticks */}
-        <mesh position={[-0.22, 0.3, 0.2]}>
-          <cylinderGeometry args={[0.1, 0.1, 0.12, 16]} />
-          <meshStandardMaterial color="#4CC9F0" roughness={0.4} />
-          <Outlines thickness={0.02} color="black" />
-        </mesh>
-        <mesh position={[0.22, 0.3, -0.2]}>
-          <cylinderGeometry args={[0.1, 0.1, 0.12, 16]} />
-          <meshStandardMaterial color="#4CC9F0" roughness={0.4} />
-          <Outlines thickness={0.02} color="black" />
-        </mesh>
-
-        {/* Center buttons */}
-        <mesh position={[0, 0.25, 0]}>
-          <boxGeometry args={[0.15, 0.05, 0.1]} />
-          <meshStandardMaterial color="#4CC9F0" roughness={0.3} />
-        </mesh>
-      </group>
-    </Float>
+    <div
+      className="transition-all duration-300"
+      style={{
+        transform: isHovered ? 'scale(1.15) rotateY(30deg)' : 'scale(1)',
+        animation: isHovered ? 'spin 2s linear infinite' : 'float 4s ease-in-out infinite'
+      }}
+    >
+      <svg width="180" height="120" viewBox="0 0 180 120">
+        {/* Shadow */}
+        <ellipse cx="90" cy="105" rx="70" ry="10" fill="rgba(0,0,0,0.1)" />
+        {/* Sole */}
+        <rect x="10" y="85" width="160" height="18" rx="4" fill="white" stroke="black" strokeWidth="3" />
+        {/* Midsole */}
+        <rect x="15" y="72" width="150" height="15" rx="3" fill="#4CC9F0" stroke="black" strokeWidth="2" />
+        {/* Heel */}
+        <rect x="15" y="40" width="50" height="35" rx="3" fill={isHovered ? colors[colorIndex] : '#7209B7'} stroke="black" strokeWidth="3" />
+        {/* Mid body */}
+        <rect x="60" y="45" width="55" height="30" rx="3" fill={isHovered ? colors[colorIndex] : '#7209B7'} stroke="black" strokeWidth="3" />
+        {/* Toe box */}
+        <rect x="110" y="52" width="50" height="25" rx="3" fill="white" stroke="black" strokeWidth="3" />
+        {/* Tongue */}
+        <rect x="70" y="25" width="40" height="28" rx="3" fill={isHovered ? colors[(colorIndex + 1) % colors.length] : '#7209B7'} stroke="black" strokeWidth="2" />
+        {/* Swoosh */}
+        <path d="M35 60 Q90 70 140 50" fill="none" stroke="white" strokeWidth="5" />
+        <path d="M35 60 Q90 70 140 50" fill="none" stroke="black" strokeWidth="1" />
+        {/* Laces */}
+        <line x1="75" y1="42" x2="105" y2="42" stroke="white" strokeWidth="4" />
+        <line x1="78" y1="52" x2="102" y2="52" stroke="white" strokeWidth="4" />
+      </svg>
+    </div>
   );
 }
 
-// Model C: Rising Staircase with Door (Ages 15-18 "Investors")
-function StaircaseModel({ isHovered }: { isHovered: boolean }) {
-  const groupRef = useRef<THREE.Group>(null);
+function GrowthTower({ isHovered }: { isHovered: boolean }) {
+  const [steps, setSteps] = useState(5);
 
-  useFrame((state) => {
-    if (groupRef.current) {
-      // Slow, steady drift
-      groupRef.current.position.y = Math.sin(state.clock.elapsedTime * 0.5) * 0.08;
-      groupRef.current.rotation.y += isHovered ? 0.015 : 0.004;
+  useEffect(() => {
+    if (isHovered) {
+      const interval = setInterval(() => setSteps(s => Math.min(s + 1, 8)), 200);
+      return () => clearInterval(interval);
+    } else {
+      setSteps(5);
     }
-  });
-
-  const stairs = [
-    { height: 0.25, color: '#06D6A0' },
-    { height: 0.45, color: '#0BC9A0' },
-    { height: 0.7, color: '#118AB2' },
-    { height: 1.0, color: '#0A7A9A' },
-    { height: 1.35, color: '#06D6A0' },
-  ];
+  }, [isHovered]);
 
   return (
-    <Float speed={1.5} rotationIntensity={0.12} floatIntensity={0.2}>
-      <group ref={groupRef} rotation={[0, -0.7, 0]} scale={0.75}>
-        {/* Base platform */}
-        <mesh position={[0, -0.15, 0]}>
-          <boxGeometry args={[2.8, 0.12, 1.3]} />
-          <meshStandardMaterial color="#1a1a1a" roughness={0.8} />
-          <Outlines thickness={0.04} color="black" />
-        </mesh>
-
-        {/* Stairs */}
-        {stairs.map((stair, i) => (
-          <mesh key={i} position={[-0.9 + i * 0.45, stair.height / 2 - 0.08, 0]}>
-            <boxGeometry args={[0.35, stair.height, 0.8]} />
-            <meshStandardMaterial color={stair.color} roughness={0.4} />
-            <Outlines thickness={0.04} color="black" />
-          </mesh>
-        ))}
-
-        {/* Door at the top */}
-        <group position={[1.1, 1.1, 0]}>
-          {/* Door frame */}
-          <mesh>
-            <boxGeometry args={[0.5, 0.8, 0.1]} />
-            <meshStandardMaterial color="#118AB2" roughness={0.4} />
-            <Outlines thickness={0.04} color="black" />
-          </mesh>
-          {/* Door knob */}
-          <mesh position={[0.15, 0, 0.08]}>
-            <sphereGeometry args={[0.05, 16, 16]} />
-            <meshStandardMaterial color="#FFD700" metalness={0.5} roughness={0.3} />
-          </mesh>
-          {/* Glow effect - star */}
-          <mesh position={[0, 0.55, 0]} rotation={[0, 0, Math.PI / 4]}>
-            <octahedronGeometry args={[0.12]} />
-            <meshStandardMaterial color="#FFD166" roughness={0.3} />
-            <Outlines thickness={0.02} color="black" />
-          </mesh>
-        </group>
-
-        {/* Coins on stairs */}
-        {[0, 2, 4].map((stairIndex, i) => (
-          <mesh
-            key={i}
-            position={[-0.9 + stairIndex * 0.45, stairs[stairIndex].height + 0.15, 0.25]}
-            rotation={[Math.PI / 2, 0, 0]}
-          >
-            <cylinderGeometry args={[0.1, 0.1, 0.03, 32]} />
-            <meshStandardMaterial color="#FFD700" metalness={0.4} roughness={0.3} />
-            <Outlines thickness={0.02} color="black" />
-          </mesh>
-        ))}
-      </group>
-    </Float>
+    <div
+      className={`transition-all duration-300 ${isHovered ? '' : 'animate-float'}`}
+      style={{ transform: isHovered ? 'scale(1.1)' : 'scale(1)' }}
+    >
+      <svg width="160" height="150" viewBox="0 0 160 150">
+        {/* Shadow */}
+        <ellipse cx="80" cy="140" rx="60" ry="8" fill="rgba(0,0,0,0.1)" />
+        {/* Base */}
+        <polygon points="20,130 140,130 130,120 30,120" fill="#1a1a1a" stroke="black" strokeWidth="2" />
+        {/* Hexagonal platforms */}
+        {Array.from({ length: steps }).map((_, i) => {
+          const y = 115 - i * 18;
+          const width = 100 - i * 8;
+          const x = 80 - width / 2;
+          const color = i % 2 === 0 ? '#118AB2' : '#2EC4B6';
+          return (
+            <g key={i}>
+              <polygon
+                points={`${x},${y} ${x + width},${y} ${x + width - 5},${y - 15} ${x + 5},${y - 15}`}
+                fill={color}
+                stroke="black"
+                strokeWidth="2"
+              />
+              {/* Coins on some platforms */}
+              {i % 2 === 0 && i < 4 && (
+                <ellipse cx={80 + (i * 5 - 10)} cy={y - 5} rx="6" ry="6" fill="#FFD700" stroke="black" strokeWidth="1.5" />
+              )}
+            </g>
+          );
+        })}
+        {/* Growth arrow */}
+        <polygon
+          points={`80,${25 - (steps - 5) * 10} 72,${40 - (steps - 5) * 10} 88,${40 - (steps - 5) * 10}`}
+          fill="#2EC4B6"
+          stroke="black"
+          strokeWidth="2"
+        />
+        <rect x="77" y={40 - (steps - 5) * 10} width="6" height={50 + (steps - 5) * 5} fill="#2EC4B6" stroke="black" strokeWidth="2" />
+      </svg>
+    </div>
   );
 }
 
 // ============================================
-// TRACK CARD COMPONENT
+// BLUEPRINT CARD COMPONENT
 // ============================================
 
-interface TrackCardProps {
+interface BlueprintCardProps {
+  id: string;
+  ageRange: string;
   title: string;
   subtitle: string;
-  ageRange: string;
   description: string;
-  icon: React.ReactNode;
-  colorTheme: {
-    primary: string;
-    secondary: string;
-  };
-  model: 'piggy' | 'controller' | 'staircase';
-  onClick: () => void;
+  status: string;
+  track: 'savers' | 'earners' | 'investors';
+  primaryColor: string;
+  accentColor: string;
+  metrics: { label: string; value: string }[];
 }
 
-function TrackCard({
-  title,
-  subtitle,
-  ageRange,
-  description,
-  icon,
-  colorTheme,
-  model,
-  onClick,
-}: TrackCardProps) {
+function BlueprintCard({
+  id, ageRange, title, subtitle, description, status, track, primaryColor, accentColor, metrics
+}: BlueprintCardProps) {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <motion.div
-      className="card-brutal overflow-hidden cursor-pointer"
-      style={{
-        backgroundColor: isHovered ? colorTheme.primary : 'white',
-      }}
+    <div
+      className="blueprint-card corner-marks cursor-pointer rounded-xl overflow-hidden"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      onClick={onClick}
-      whileHover={{ y: -6 }}
-      whileTap={{ scale: 0.98 }}
     >
-      {/* 3D Canvas */}
-      <div
-        className="h-52 w-full relative border-b-2 border-black"
-        style={{
-          background: `linear-gradient(135deg, ${colorTheme.primary}25, ${colorTheme.secondary}25)`,
-        }}
-      >
-        <Canvas>
-          <OrthographicCamera makeDefault position={[5, 5, 5]} zoom={50} near={0.1} far={1000} />
-          <ambientLight intensity={0.6} />
-          <directionalLight position={[10, 10, 5]} intensity={1} />
-          <directionalLight position={[-5, 5, -5]} intensity={0.4} />
-          {model === 'piggy' && <PiggyBankModel isHovered={isHovered} />}
-          {model === 'controller' && <GameControllerModel isHovered={isHovered} />}
-          {model === 'staircase' && <StaircaseModel isHovered={isHovered} />}
-          <ContactShadows position={[0, -1.2, 0]} opacity={0.35} scale={6} blur={2} far={3} />
-        </Canvas>
+      <div className="id-badge">{id}</div>
+      <div className="absolute top-3 right-3 flex items-center gap-2 z-10">
+        <span className="mono-label text-gray-500">{status}</span>
+        <div className="status-dot" />
       </div>
 
-      {/* Content */}
-      <div className="p-5">
-        {/* Age Badge */}
+      <div className="h-56 w-full relative bg-gradient-to-b from-gray-50 to-white tech-grid flex items-center justify-center pt-6">
+        {track === 'savers' && <PolyPiggy isHovered={isHovered} />}
+        {track === 'earners' && <VoxelSneaker isHovered={isHovered} />}
+        {track === 'investors' && <GrowthTower isHovered={isHovered} />}
+
         <div
-          className="inline-flex items-center gap-2 px-3 py-1 rounded-lg border-2 border-black text-sm font-bold mb-3"
-          style={{
-            backgroundColor: isHovered ? 'white' : colorTheme.primary,
-            color: isHovered ? colorTheme.primary : 'white',
-          }}
+          className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`}
+          style={{ background: `linear-gradient(135deg, ${primaryColor}15, ${accentColor}15)` }}
         >
-          {icon}
-          Ages {ageRange}
+          <div
+            className="px-4 py-2 border-2 border-black bg-white font-semibold text-sm flex items-center gap-2"
+            style={{ boxShadow: '3px 3px 0 0 rgba(0,0,0,1)' }}
+          >
+            <Play size={14} fill="currentColor" />
+            View Module
+          </div>
+        </div>
+      </div>
+
+      <div className="p-5 border-t-2 border-black">
+        <div className="flex items-center justify-between mb-3">
+          <div
+            className="px-3 py-1 text-xs font-bold border-2 border-black text-white"
+            style={{ backgroundColor: accentColor }}
+          >
+            AGES {ageRange}
+          </div>
+          <span className="mono-label text-gray-400">MODULE</span>
         </div>
 
-        {/* Title */}
-        <h3
-          className="text-2xl font-bold mb-1"
-          style={{ color: isHovered ? 'white' : '#1a1a1a' }}
-        >
-          {title}
-        </h3>
+        <h3 className="text-xl font-bold tracking-tight mb-1">{title}</h3>
+        <p className="mono-label mb-3" style={{ color: primaryColor }}>{subtitle}</p>
+        <p className="text-sm text-gray-600 leading-relaxed mb-4">{description}</p>
 
-        {/* Subtitle */}
-        <p
-          className="text-sm font-semibold mb-2"
-          style={{ color: isHovered ? 'rgba(255,255,255,0.85)' : colorTheme.primary }}
-        >
-          {subtitle}
-        </p>
+        <div className="grid grid-cols-2 gap-2 mb-4">
+          {metrics.map((m, i) => (
+            <div key={i} className="px-3 py-2 bg-gray-50 border border-gray-200">
+              <div className="mono-label text-gray-400 mb-1">{m.label}</div>
+              <div className="font-bold text-sm">{m.value}</div>
+            </div>
+          ))}
+        </div>
 
-        {/* Description */}
-        <p
-          className="text-sm leading-relaxed"
-          style={{ color: isHovered ? 'rgba(255,255,255,0.9)' : '#666' }}
-        >
-          {description}
-        </p>
-
-        {/* CTA Button */}
         <button
-          className="mt-4 w-full py-3 rounded-lg border-2 border-black font-bold shadow-brutal-sm transition-all hover:shadow-brutal"
-          style={{
-            backgroundColor: isHovered ? 'white' : colorTheme.secondary,
-            color: isHovered ? colorTheme.primary : 'white',
-          }}
+          className="w-full py-3 font-semibold border-2 border-black flex items-center justify-center gap-2 text-white rounded-lg"
+          style={{ backgroundColor: primaryColor, boxShadow: '4px 4px 0 0 rgba(0,0,0,1)' }}
         >
-          🎮 Start Quest
+          Start Learning
+          <ArrowRight size={16} />
         </button>
       </div>
-    </motion.div>
+    </div>
   );
 }
 
 // ============================================
-// MINI-EXERCISE MODAL
+// STAT CARD COMPONENT
 // ============================================
 
-interface LessonModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  activeLesson: 'explorers' | 'creators' | 'investors' | null;
-}
-
-function LessonModal({ isOpen, onClose, activeLesson }: LessonModalProps) {
-  const [answered, setAnswered] = useState<'correct' | 'wrong' | null>(null);
-
-  const lessons = {
-    explorers: {
-      title: '💰 The $5 Decision!',
-      question: 'You found $5! What do you do?',
-      optionA: { text: '🍬 Buy Candy Now', isCorrect: false },
-      optionB: { text: '🧸 Save for a Toy', isCorrect: true },
-      successMsg: "Amazing! Saving helps you get bigger things! 🎉",
-      failMsg: "Candy is yummy, but saving gets you MORE! 🤔",
-      color: '#FF9F1C',
-    },
-    creators: {
-      title: '🎮 The Sneaker Goal!',
-      question: 'You want $100 sneakers. You earn $20/week. How do you reach your goal?',
-      optionA: { text: '😅 Borrow from friends', isCorrect: false },
-      optionB: { text: '📊 Save $20/week for 5 weeks', isCorrect: true },
-      successMsg: "Smart! Patience + Planning = Success! 🚀",
-      failMsg: "Borrowing feels easy but saving builds REAL power! 💪",
-      color: '#7209B7',
-    },
-    investors: {
-      title: '📈 Compound Interest!',
-      question: 'You invest $100 at 10% yearly. After 1 year, you have...',
-      optionA: { text: '💵 $110 (It grows!)', isCorrect: true },
-      optionB: { text: '💵 $100 (Same amount)', isCorrect: false },
-      successMsg: "Exactly! Money can GROW while you sleep! 🌙",
-      failMsg: "With investing, your money works FOR you! Learn more! 📚",
-      color: '#06D6A0',
-    },
-  };
-
-  const lesson = activeLesson ? lessons[activeLesson] : null;
-
-  const handleAnswer = (isCorrect: boolean) => {
-    setAnswered(isCorrect ? 'correct' : 'wrong');
-  };
-
-  const handleClose = () => {
-    setAnswered(null);
-    onClose();
-  };
-
-  if (!lesson) return null;
-
+function StatCard({ icon: Icon, value, label, color }: {
+  icon: React.ComponentType<{ size?: number }>;
+  value: string;
+  label: string;
+  color: string
+}) {
   return (
-    <AnimatePresence>
-      {isOpen && (
-        <motion.div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 modal-overlay"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          onClick={handleClose}
-        >
-          <motion.div
-            className="bg-white border-4 border-black rounded-2xl p-8 max-w-md w-full shadow-brutal-lg relative"
-            initial={{ scale: 0.8, y: 50 }}
-            animate={{ scale: 1, y: 0 }}
-            exit={{ scale: 0.8, y: 50 }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Close button */}
-            <button
-              className="absolute top-4 right-4 p-2 rounded-full border-2 border-black bg-white hover:bg-gray-100 transition-colors shadow-brutal-sm"
-              onClick={handleClose}
-            >
-              <X size={20} />
-            </button>
-
-            {/* Badge */}
-            <div
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border-2 border-black text-white font-bold mb-4 shadow-brutal-sm"
-              style={{ backgroundColor: lesson.color }}
-            >
-              <Sparkles size={18} />
-              Quick Challenge!
-            </div>
-
-            {/* Title */}
-            <h2 className="text-2xl font-bold mb-4">{lesson.title}</h2>
-
-            {/* Question */}
-            <p className="text-lg text-gray-700 mb-6 leading-relaxed">{lesson.question}</p>
-
-            {/* Answer feedback or options */}
-            {answered ? (
-              <motion.div
-                initial={{ scale: 0.8, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                className={`p-6 rounded-xl border-2 border-black text-center ${answered === 'correct' ? 'bg-green-100' : 'bg-red-100'
-                  }`}
-              >
-                {answered === 'correct' ? (
-                  <>
-                    <motion.div
-                      className="animate-celebrate inline-block"
-                      initial={{ rotate: 0 }}
-                      animate={{ rotate: [0, -10, 10, -5, 5, 0] }}
-                      transition={{ duration: 0.5 }}
-                    >
-                      <CheckCircle size={56} className="mx-auto mb-3 text-green-600" />
-                    </motion.div>
-                    <p className="text-xl font-bold text-green-700">Success! 🎉</p>
-                    <p className="text-gray-600 mt-2">{lesson.successMsg}</p>
-                  </>
-                ) : (
-                  <>
-                    <XCircle size={56} className="mx-auto mb-3 text-red-500" />
-                    <p className="text-xl font-bold text-red-600">Not quite! 🤔</p>
-                    <p className="text-gray-600 mt-2">{lesson.failMsg}</p>
-                  </>
-                )}
-                <button
-                  className="mt-5 btn-brutal bg-black text-white w-full"
-                  onClick={handleClose}
-                >
-                  Continue Learning →
-                </button>
-              </motion.div>
-            ) : (
-              <div className="space-y-3">
-                <button
-                  className="w-full btn-brutal bg-red-400 text-white hover:bg-red-500 text-left"
-                  onClick={() => handleAnswer(lesson.optionA.isCorrect)}
-                >
-                  {lesson.optionA.text}
-                </button>
-                <button
-                  className="w-full btn-brutal bg-green-400 text-white hover:bg-green-500 text-left"
-                  onClick={() => handleAnswer(lesson.optionB.isCorrect)}
-                >
-                  {lesson.optionB.text}
-                </button>
-              </div>
-            )}
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+    <div className="blueprint-card p-5 rounded-xl">
+      <div className="id-badge">STAT</div>
+      <div
+        className="w-10 h-10 flex items-center justify-center border-2 border-black mb-3 text-white mt-4"
+        style={{ backgroundColor: color }}
+      >
+        <Icon size={20} />
+      </div>
+      <div className="text-3xl font-bold tracking-tight">{value}</div>
+      <div className="mono-label text-gray-500 mt-1">{label}</div>
+    </div>
   );
 }
 
@@ -561,208 +270,259 @@ function LessonModal({ isOpen, onClose, activeLesson }: LessonModalProps) {
 // ============================================
 
 export default function Home() {
-  const [activeLesson, setActiveLesson] = useState<'explorers' | 'creators' | 'investors' | null>(null);
-
-  const openLesson = (track: 'explorers' | 'creators' | 'investors') => {
-    setActiveLesson(track);
-  };
+  const cardData: BlueprintCardProps[] = [
+    {
+      id: "FIG. 01", ageRange: "6-10", title: "The Piggy Bank Challenge", subtitle: "// TRACK_A: SAVERS",
+      description: "Master the fundamentals of saving. Learn needs vs. wants through interactive challenges that build lifelong habits.",
+      status: "ACTIVE", track: "savers", primaryColor: "#FF9F1C", accentColor: "#2EC4B6",
+      metrics: [{ label: "LESSONS", value: "12" }, { label: "DURATION", value: "4 weeks" }, { label: "LEVEL", value: "Beginner" }, { label: "RATING", value: "4.9/5" }]
+    },
+    {
+      id: "FIG. 02", ageRange: "11-15", title: "Side Hustle Simulator", subtitle: "// TRACK_B: EARNERS",
+      description: "Discover entrepreneurship basics. Set savings goals, track progress, and learn how compound interest accelerates growth.",
+      status: "ACTIVE", track: "earners", primaryColor: "#7209B7", accentColor: "#4CC9F0",
+      metrics: [{ label: "LESSONS", value: "18" }, { label: "DURATION", value: "6 weeks" }, { label: "LEVEL", value: "Intermediate" }, { label: "RATING", value: "4.8/5" }]
+    },
+    {
+      id: "FIG. 03", ageRange: "15-18", title: "The Compound Lab", subtitle: "// TRACK_C: INVESTORS",
+      description: "Unlock investing fundamentals. Understand market dynamics, portfolio basics, and the power of compound returns.",
+      status: "ACTIVE", track: "investors", primaryColor: "#118AB2", accentColor: "#2EC4B6",
+      metrics: [{ label: "LESSONS", value: "24" }, { label: "DURATION", value: "8 weeks" }, { label: "LEVEL", value: "Advanced" }, { label: "RATING", value: "4.9/5" }]
+    }
+  ];
 
   return (
-    <main className="min-h-screen">
-      {/* Header */}
-      <header className="sticky top-0 z-40 bg-[#FFFBF0]/95 backdrop-blur-sm border-b-2 border-black">
-        <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-          {/* Logo */}
+    <main className="min-h-screen dot-pattern">
+      {/* Navigation */}
+      <nav className="fixed top-0 left-0 right-0 z-50 border-b-2 border-black bg-[#FDFCF6]/95 backdrop-blur-sm">
+        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-[#FF9F1C] rounded-xl border-2 border-black shadow-brutal-sm flex items-center justify-center">
-              <Coins size={22} className="text-white" />
-            </div>
-            <span className="text-2xl font-bold tracking-tight">MoneyQuest</span>
-          </div>
-
-          {/* Gamified Login Button */}
-          <button className="btn-pill flex items-center gap-2 bg-[#7209B7] text-white hover:bg-[#5c07a0]">
-            <LogIn size={18} />
-            Gamified Login
-          </button>
-        </div>
-      </header>
-
-      {/* Hero Section */}
-      <section className="py-16 px-4 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="max-w-3xl mx-auto"
-        >
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-lg border-2 border-black bg-white shadow-brutal-sm">
-            <span className="text-xl">🎮</span>
-            <span className="font-bold">Financial Literacy for Kids</span>
-          </div>
-
-          {/* Headline */}
-          <h1 className="text-5xl md:text-6xl font-bold mb-5 leading-tight">
-            Level Up Your{' '}
-            <span
-              className="relative inline-block"
-              style={{
-                background: 'linear-gradient(135deg, #FF9F1C, #7209B7, #06D6A0)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-              }}
+            <div
+              className="w-10 h-10 border-2 border-black flex items-center justify-center font-bold text-lg text-white"
+              style={{ backgroundColor: '#FF9F1C', boxShadow: '3px 3px 0 0 rgba(0,0,0,1)' }}
             >
-              Money.
-            </span>
-          </h1>
-
-          {/* Subtext */}
-          <p className="text-xl text-gray-600 mb-10 max-w-xl mx-auto">
-            Choose your character to start learning.
-            <strong> Earn, save, and grow!</strong>
-          </p>
-
-          {/* CTA Buttons */}
-          <div className="flex flex-wrap justify-center gap-4">
-            <button className="btn-brutal text-lg px-8 py-4 bg-[#FF9F1C] text-white">
-              🚀 Start Free
-            </button>
-            <button className="btn-brutal text-lg px-8 py-4 bg-white text-black">
-              📖 How It Works
+              MQ
+            </div>
+            <div>
+              <div className="font-bold text-sm tracking-tight">MoneyQuest</div>
+              <div className="mono-label text-gray-500">v2.0</div>
+            </div>
+          </div>
+          <div className="hidden md:flex items-center gap-8">
+            <a href="#" className="mono-label text-gray-600 hover:text-black transition-colors">Modules</a>
+            <a href="#" className="mono-label text-gray-600 hover:text-black transition-colors">For Schools</a>
+            <a href="#" className="mono-label text-gray-600 hover:text-black transition-colors">Documentation</a>
+            <button className="btn-blueprint bg-black text-white mono-label rounded-lg">
+              Get Started <ChevronRight size={14} />
             </button>
           </div>
-        </motion.div>
-      </section>
+        </div>
+      </nav>
 
-      {/* Age Tracks Section */}
-      <section className="py-12 px-4">
+      {/* Hero */}
+      <section className="pt-32 pb-20 px-6">
         <div className="max-w-7xl mx-auto">
-          {/* Section Header */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-10"
-          >
-            <div className="inline-flex items-center gap-2 px-4 py-2 mb-3 rounded-lg border-2 border-black bg-[#06D6A0] text-white font-bold shadow-brutal-sm">
-              🎯 Choose Your Track
+          <div className="grid lg:grid-cols-2 gap-16 items-start">
+            <div className="space-y-8">
+              <div className="inline-flex items-center gap-3 px-4 py-2 border-2 border-black bg-white rounded-lg" style={{ boxShadow: '3px 3px 0 0 rgba(0,0,0,1)' }}>
+                <div className="status-dot" />
+                <span className="mono-label">System Online — 50,000+ Active Users</span>
+              </div>
+
+              <h1 className="headline-heavy text-6xl md:text-7xl lg:text-8xl">
+                Financial<br />Literacy for<br />
+                <span className="relative inline-block">
+                  <span className="relative z-10">the Next Gen.</span>
+                  <span className="absolute bottom-2 left-0 w-full h-4 -z-0" style={{ backgroundColor: '#FF9F1C' }} />
+                </span>
+              </h1>
+
+              <p className="text-xl text-gray-600 max-w-md leading-relaxed">
+                Interactive 3D learning modules designed to build real financial skills. No boring lectures. Just engaging, game-based education.
+              </p>
+
+              <div className="flex flex-wrap gap-4">
+                <button className="btn-blueprint bg-black text-white rounded-lg">
+                  <Zap size={18} /> Launch Platform
+                </button>
+                <button className="btn-blueprint bg-white text-black rounded-lg">
+                  <BookOpen size={18} /> View Curriculum
+                </button>
+              </div>
+
+              <div className="pt-6 border-t border-gray-200">
+                <div className="mono-label text-gray-400 mb-3">Trusted By</div>
+                <div className="flex flex-wrap gap-6">
+                  {["Stanford Ed Lab", "MIT Media Lab", "Khan Academy", "EdSurge"].map(name => (
+                    <span key={name} className="text-sm font-semibold text-gray-400">{name}</span>
+                  ))}
+                </div>
+              </div>
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold">
-              Pick Your <span style={{ color: '#7209B7' }}>Character</span>
-            </h2>
-          </motion.div>
 
-          {/* 3-Column Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-            >
-              <TrackCard
-                title="The Explorers"
-                subtitle="Bouncy & Simple"
-                ageRange="6-10"
-                description="Start your money adventure! Learn wants vs. needs and make your piggy bank happy."
-                icon={<Coins size={16} />}
-                colorTheme={{ primary: '#FF9F1C', secondary: '#FFBF69' }}
-                model="piggy"
-                onClick={() => openLesson('explorers')}
-              />
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-            >
-              <TrackCard
-                title="The Creators"
-                subtitle="Tech & Gamer Vibes"
-                ageRange="11-15"
-                description="Level up your hustle! Set savings goals and unlock your first side quest."
-                icon={<Gamepad2 size={16} />}
-                colorTheme={{ primary: '#7209B7', secondary: '#4CC9F0' }}
-                model="controller"
-                onClick={() => openLesson('creators')}
-              />
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
-            >
-              <TrackCard
-                title="The Investors"
-                subtitle="Growth & Future"
-                ageRange="15-18"
-                description="Master the money game! Discover compound interest and build real wealth."
-                icon={<TrendingUp size={16} />}
-                colorTheme={{ primary: '#06D6A0', secondary: '#118AB2' }}
-                model="staircase"
-                onClick={() => openLesson('investors')}
-              />
-            </motion.div>
+            <div className="grid gap-6">
+              <div className="blueprint-card p-6 corner-marks rounded-xl">
+                <div className="id-badge">OVERVIEW</div>
+                <div className="grid grid-cols-3 gap-4 mt-8">
+                  {[
+                    { color: '#FF9F1C', Icon: Target, ages: '6-10', label: 'Savers' },
+                    { color: '#7209B7', Icon: TrendingUp, ages: '11-15', label: 'Earners' },
+                    { color: '#118AB2', Icon: Award, ages: '15-18', label: 'Investors' }
+                  ].map((item, i) => (
+                    <div key={i} className="text-center">
+                      <div
+                        className="w-12 h-12 mx-auto mb-2 border-2 border-black flex items-center justify-center text-white"
+                        style={{ backgroundColor: item.color }}
+                      >
+                        <item.Icon size={24} />
+                      </div>
+                      <div className="mono-label text-gray-500">Ages {item.ages}</div>
+                      <div className="font-bold">{item.label}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <StatCard icon={Users} value="50K+" label="Active Learners" color="#FF9F1C" />
+                <StatCard icon={Sparkles} value="98%" label="Completion Rate" color="#7209B7" />
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Features Grid */}
-      <section className="py-12 px-4">
-        <div className="max-w-5xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {[
-              { emoji: '🎮', title: 'Game-Based', color: '#FF9F1C' },
-              { emoji: '🏆', title: 'Win Badges', color: '#7209B7' },
-              { emoji: '👨‍👩‍👧', title: 'Family Safe', color: '#06D6A0' },
-              { emoji: '📱', title: 'Play Anywhere', color: '#4CC9F0' },
-            ].map((feature, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="card-brutal p-4 text-center"
-              >
-                <div
-                  className="w-12 h-12 rounded-lg border-2 border-black flex items-center justify-center text-xl mx-auto mb-2 shadow-brutal-sm"
-                  style={{ backgroundColor: feature.color }}
-                >
-                  {feature.emoji}
+      {/* Modules Section */}
+      <section className="py-20 px-6 border-t-2 border-black">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-wrap items-end justify-between gap-4 mb-12">
+            <div>
+              <div className="mono-label text-gray-400 mb-2">Learning Tracks</div>
+              <h2 className="headline-heavy text-4xl md:text-5xl">Choose Your<br />Adventure</h2>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="status-dot" />
+              <span className="mono-label">3 Modules Available</span>
+            </div>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {cardData.map(card => <BlueprintCard key={card.id} {...card} />)}
+          </div>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="py-20 px-6 border-t-2 border-black bg-white">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-16">
+            <div>
+              <div className="mono-label text-gray-400 mb-2">Platform Features</div>
+              <h2 className="headline-heavy text-4xl mb-8">Built for<br />Real Learning</h2>
+              <div className="space-y-4">
+                {[
+                  { Icon: Zap, title: "3D Interactive Simulations", desc: "Engaging visual experiences that make abstract concepts tangible.", color: "#FF9F1C" },
+                  { Icon: Shield, title: "COPPA Compliant & Safe", desc: "Built with child safety as the foundation. No ads, no data selling.", color: "#7209B7" },
+                  { Icon: TrendingUp, title: "Progress Tracking", desc: "Real-time analytics for parents and educators to monitor growth.", color: "#118AB2" },
+                  { Icon: Award, title: "Achievement System", desc: "Gamified rewards that motivate continued learning and mastery.", color: "#2EC4B6" }
+                ].map((f, i) => (
+                  <div key={i} className="blueprint-card p-5 flex gap-4 items-start rounded-xl">
+                    <div className="id-badge">{String(i + 1).padStart(2, '0')}</div>
+                    <div
+                      className="w-10 h-10 flex-shrink-0 border-2 border-black flex items-center justify-center mt-6 text-white"
+                      style={{ backgroundColor: f.color }}
+                    >
+                      <f.Icon size={20} />
+                    </div>
+                    <div className="pt-6">
+                      <h3 className="font-bold mb-1">{f.title}</h3>
+                      <p className="text-sm text-gray-600">{f.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex flex-col justify-center">
+              <div className="blueprint-card p-8 corner-marks rounded-xl">
+                <div className="id-badge">TESTIMONIAL</div>
+                <div className="mono-label text-gray-400 mb-4 pt-6">Featured Review</div>
+                <blockquote className="text-2xl font-bold tracking-tight leading-tight mb-6">
+                  &quot;My kids actually ASK to do their financial lessons now. That&apos;s never happened with any educational platform.&quot;
+                </blockquote>
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 border-2 border-black flex items-center justify-center font-bold text-white" style={{ backgroundColor: '#4CC9F0' }}>SJ</div>
+                  <div>
+                    <div className="font-semibold">Sarah J.</div>
+                    <div className="mono-label text-gray-500">Parent of 2 — California</div>
+                  </div>
                 </div>
-                <h3 className="font-bold">{feature.title}</h3>
-              </motion.div>
-            ))}
+              </div>
+
+              <div
+                className="mt-6 p-8 border-2 border-black rounded-xl"
+                style={{ backgroundColor: '#118AB2', boxShadow: '6px 6px 0 0 rgba(0,0,0,1)' }}
+              >
+                <div className="mono-label text-white/70 mb-2">Get Started</div>
+                <h3 className="text-2xl font-bold text-white mb-4">Ready to launch?</h3>
+                <p className="text-white/80 mb-6">Join 50,000+ families building financial literacy the fun way.</p>
+                <button className="btn-blueprint bg-white text-black w-full justify-center rounded-lg">
+                  Create Free Account <ArrowRight size={16} />
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="py-8 px-4 border-t-2 border-black mt-8">
-        <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-          <div className="flex items-center gap-2">
-            <Coins size={20} className="text-[#FF9F1C]" />
-            <span className="font-bold">MoneyQuest</span>
+      <footer className="py-12 px-6 border-t-2 border-black">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-4 gap-8 mb-12">
+            <div>
+              <div className="flex items-center gap-3 mb-4">
+                <div
+                  className="w-10 h-10 border-2 border-black flex items-center justify-center font-bold text-white"
+                  style={{ backgroundColor: '#FF9F1C', boxShadow: '3px 3px 0 0 rgba(0,0,0,1)' }}
+                >
+                  MQ
+                </div>
+                <div>
+                  <div className="font-bold">MoneyQuest</div>
+                  <div className="mono-label text-gray-500">v2.0</div>
+                </div>
+              </div>
+              <p className="text-sm text-gray-600">Financial literacy for the next generation.</p>
+            </div>
+            {[
+              { title: "Product", links: ["All Modules", "For Schools", "For Parents", "Pricing"] },
+              { title: "Resources", links: ["Documentation", "API", "Blog", "Support"] },
+              { title: "Company", links: ["About", "Careers", "Privacy", "Terms"] }
+            ].map(col => (
+              <div key={col.title}>
+                <div className="mono-label text-gray-400 mb-4">{col.title}</div>
+                <ul className="space-y-2">
+                  {col.links.map(link => (
+                    <li key={link}>
+                      <a href="#" className="text-sm text-gray-600 hover:text-black flex items-center gap-1 transition-colors">
+                        {link} <ExternalLink size={10} className="opacity-50" />
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
-          <div className="text-gray-500 text-sm">
-            © 2026 MoneyQuest. Made with 💜 for kids everywhere.
+          <div className="pt-8 border-t border-gray-200 flex flex-wrap justify-between items-center gap-4">
+            <div className="mono-label text-gray-500">© 2026 MoneyQuest. All rights reserved.</div>
+            <div className="flex gap-4">
+              {[Twitter, Github, Mail].map((Icon, i) => (
+                <a key={i} href="#" className="w-8 h-8 border border-gray-300 flex items-center justify-center hover:border-black transition-colors">
+                  <Icon size={14} />
+                </a>
+              ))}
+            </div>
           </div>
         </div>
       </footer>
-
-      {/* Mini-Exercise Modal */}
-      <LessonModal
-        isOpen={activeLesson !== null}
-        onClose={() => setActiveLesson(null)}
-        activeLesson={activeLesson}
-      />
     </main>
   );
 }

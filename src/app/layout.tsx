@@ -1,16 +1,22 @@
 import type { Metadata } from "next";
-import { Fredoka } from "next/font/google";
+import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
-const fredoka = Fredoka({
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
-  display: "swap",
+  variable: "--font-space-grotesk",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  variable: "--font-jetbrains",
 });
 
 export const metadata: Metadata = {
-  title: "MoneyQuest | Level Up Your Wallet",
-  description: "The game where kids learn to earn, save, and grow. Financial literacy for the next generation.",
+  title: "MoneyQuest v2.0 | Financial Literacy for the Next Gen",
+  description: "Interactive 3D learning modules designed to build real financial skills. No boring lectures. Just engaging, game-based education.",
   keywords: ["financial literacy", "kids", "education", "money", "saving", "investing", "games", "moneyquest"],
 };
 
@@ -21,7 +27,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${fredoka.className} antialiased`} suppressHydrationWarning>
+      <body
+        className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} antialiased`}
+        style={{ fontFamily: 'var(--font-space-grotesk), sans-serif' }}
+        suppressHydrationWarning
+      >
         {children}
       </body>
     </html>
