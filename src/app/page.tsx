@@ -301,10 +301,10 @@ export default function Home() {
               className="w-10 h-10 border-2 border-black flex items-center justify-center font-bold text-lg text-white"
               style={{ backgroundColor: '#FF9F1C', boxShadow: '3px 3px 0 0 rgba(0,0,0,1)' }}
             >
-              MQ
+              CC
             </div>
             <div>
-              <div className="font-bold text-sm tracking-tight">MoneyQuest</div>
+              <div className="font-bold text-sm tracking-tight">CashCurious</div>
               <div className="mono-label text-gray-500">v2.0</div>
             </div>
           </div>
@@ -483,14 +483,14 @@ export default function Home() {
                   className="w-10 h-10 border-2 border-black flex items-center justify-center font-bold text-white"
                   style={{ backgroundColor: '#FF9F1C', boxShadow: '3px 3px 0 0 rgba(0,0,0,1)' }}
                 >
-                  MQ
+                  CC
                 </div>
                 <div>
-                  <div className="font-bold">MoneyQuest</div>
+                  <div className="font-bold">CashCurious</div>
                   <div className="mono-label text-gray-500">v2.0</div>
                 </div>
               </div>
-              <p className="text-sm text-gray-600">Financial literacy for the next generation.</p>
+              <p className="text-sm text-gray-600">Financial literacy for the curious generation.</p>
             </div>
             {[
               { title: "Product", links: ["All Modules", "For Schools", "For Parents", "Pricing"] },
@@ -512,7 +512,7 @@ export default function Home() {
             ))}
           </div>
           <div className="pt-8 border-t border-gray-200 flex flex-wrap justify-between items-center gap-4">
-            <div className="mono-label text-gray-500">© 2026 MoneyQuest. All rights reserved.</div>
+            <div className="mono-label text-gray-500">© 2026 CashCurious. All rights reserved.</div>
             <div className="flex gap-4">
               {[Twitter, Github, Mail].map((Icon, i) => (
                 <a key={i} href="#" className="w-8 h-8 border border-gray-300 flex items-center justify-center hover:border-black transition-colors">

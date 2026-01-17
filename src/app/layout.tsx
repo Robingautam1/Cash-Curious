@@ -15,9 +15,9 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "MoneyQuest v2.0 | Financial Literacy for the Next Gen",
+  title: "CashCurious v2.0 | Financial Literacy for the Next Gen",
   description: "Interactive 3D learning modules designed to build real financial skills. No boring lectures. Just engaging, game-based education.",
-  keywords: ["financial literacy", "kids", "education", "money", "saving", "investing", "games", "moneyquest"],
+  keywords: ["financial literacy", "kids", "education", "money", "saving", "investing", "games", "cashcurious"],
 };
 
 export default function RootLayout({
